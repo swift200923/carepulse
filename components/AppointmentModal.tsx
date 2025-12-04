@@ -13,6 +13,8 @@ import {
 } from "@/components/ui/dialog";
 
 import AppointmentForm from "./forms/AppointmentForm";
+
+import "react-datepicker/dist/react-datepicker.css";
 import { Appointment } from "@/lib/types/appwrite.types";
 
 type AppointmentModalProps = {
@@ -34,27 +36,24 @@ export const AppointmentModal = ({
 }: AppointmentModalProps) => {
   const [open, setOpen] = useState(false);
 
-  const buttonLabel = type === "cancel" ? "Cancel" : "Schedule";
+  const isSchedule = type === "schedule";
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button
-          className={
-            type === "cancel"
-              ? "shad-danger-btn"
-              : "shad-primary-btn"
-          }
+          variant="ghost"
+          className={`capitalize ${
+            isSchedule ? "text-green-500" : "text-red-500"
+          }`}
         >
-          {buttonLabel} appointment
+          {type}
         </Button>
       </DialogTrigger>
 
       <DialogContent className="shad-dialog sm:max-w-md">
         <DialogHeader className="mb-4 space-y-3">
-          <DialogTitle className="capitalize">
-            {title}
-          </DialogTitle>
+          <DialogTitle className="capitalize">{title}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
 
@@ -69,3 +68,5 @@ export const AppointmentModal = ({
     </Dialog>
   );
 };
+
+export default AppointmentModal;
